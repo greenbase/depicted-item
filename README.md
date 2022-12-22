@@ -1,4 +1,4 @@
-# Make Images of CAD Models
+# Generate Images from CAD Models
 
 Using the "main.py" script you can generate images of your CAD models in step
 file format. The models are rotated randomly.
