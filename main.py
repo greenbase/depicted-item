@@ -21,16 +21,16 @@ be improved on.
 # ****************** SETTINGS **********************
 
 # Amount of images to be made per model. 
-IMAGES_TOTAL = 5  # Max. 36**3
+IMAGES_TOTAL = 1000  # Max. 36**3
 
 # resolution and background of images to be saved
-RESOLUTION_X = 500
-RESOLUTION_Y = 500
-BACKGROUND = 'Transparent'  # 'White', 'Black', 'Transparent', 'Current"
+RESOLUTION_X = 200
+RESOLUTION_Y = 200
+BACKGROUND = 'Black'  # 'White', 'Black', 'Transparent', 'Current"
 
 # Zoom level interval (refers to the height of the camera over the model)
-camera_height_factor_min = 0.5 
-camera_height_factor_max = 1.5
+camera_height_factor_min = 0.6 
+camera_height_factor_max = 0.6
 
 # **************************************************
 
@@ -136,7 +136,7 @@ def main():
     ROOT = Path(".")
     PICTURES_DIR = ROOT/"images"
     MODELS_DIR = ROOT/"models"
-    model_paths = MODELS_DIR.glob("*.step")
+    model_paths = MODELS_DIR.rglob("*.step")
     
     # setup FreeCADGui. During runtime the empty window will be showing
     FreeCADGui.showMainWindow()
@@ -169,8 +169,12 @@ def main():
             camera.scaleHeight(zoom_factor)
 
             # save image
-            image_name = f"{model_path.stem}_#{image_index}.png"
-            image_target_path = PICTURES_DIR/image_name
+            image_target_path = PICTURES_DIR / model_path.relative_to(MODELS_DIR).with_suffix("")  # add folder for model images
+            new_file_name = image_target_path.name + f"_#{image_index}.png"
+            image_target_path = image_target_path / new_file_name
+
+            image_target_path.parent.mkdir(exist_ok=True, parents=True)
+
             view.saveImage(
                 image_target_path.as_posix(),
                 RESOLUTION_X,

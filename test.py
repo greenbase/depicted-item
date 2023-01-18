@@ -17,8 +17,8 @@ sys.path.append(os.path.realpath("."))
 class TestLoadModel(unittest.TestCase):
 
     def test_step_file(self):
-        data = "./models/M4-Nut.step"
-        result = main.load_model(data)
+        path_test_step_file = Path("M4-Nut.step")
+        result = main.load_model(path_test_step_file.as_posix())
         self.assertIsInstance(result,FreeCAD.Document)
 
 
@@ -46,7 +46,7 @@ class TestRotateModel(unittest.TestCase):
 
     def test_list_of_int(self):
         # define input
-        freecad_document = main.load_model("./models/M4-Nut.step")
+        freecad_document = main.load_model("M4-Nut.step")
         angels = [10,10,10]
 
         # rotate loaded model

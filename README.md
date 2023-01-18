@@ -7,5 +7,5 @@ For usage instructions see documentation in the main.py file.
 
 # Install dependencies with Anaconda
 
-Create a new environment 'env-name' with all necessary packages.
+Create a new environment 'depicted-item' with all necessary packages.
 $ conda env create -f env.yml
